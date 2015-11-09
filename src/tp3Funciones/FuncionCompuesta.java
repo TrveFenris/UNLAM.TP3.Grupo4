@@ -118,7 +118,7 @@ public class FuncionCompuesta implements Funcion{
 	}
 	
 	private Funcion crearFuncion(int indice){
-		System.out.print(datos[indice]/*+ "\t"+indice*/);
+		System.out.println(datos[indice]+ "\t"+indice);
 		
 		if(datos[indice].equals("+")){
 			return funcion=new Suma(crearFuncion(indice-1),crearFuncion(indice-2));
