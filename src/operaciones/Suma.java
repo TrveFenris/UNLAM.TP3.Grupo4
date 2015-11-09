@@ -1,10 +1,10 @@
 package operaciones;
 
-public class Suma implements Operacion {
-	private Operacion operacion1;
-	private Operacion operacion2;
+public class Suma implements Funcion {
+	private Funcion operacion1;
+	private Funcion operacion2;
 	
-	public Suma(Operacion a, Operacion b) {
+	public Suma(Funcion a, Funcion b) {
 		operacion1  = a;
 		operacion2 = b;
 	}

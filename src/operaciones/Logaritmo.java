@@ -1,9 +1,9 @@
 package operaciones;
 
-public class Logaritmo implements Operacion {
-	private Operacion operacion1;
+public class Logaritmo implements Funcion {
+	private Funcion operacion1;
 	
-	public Logaritmo(Operacion a) {
+	public Logaritmo(Funcion a) {
 		operacion1  = a;
 	}
 	

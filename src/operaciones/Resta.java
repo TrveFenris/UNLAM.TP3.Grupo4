@@ -1,10 +1,10 @@
 package operaciones;
 
-public class Resta implements Operacion {
-	private Operacion operacion1;
-	private Operacion operacion2;
+public class Resta implements Funcion {
+	private Funcion operacion1;
+	private Funcion operacion2;
 	
-	public Resta(Operacion a, Operacion b) {
+	public Resta(Funcion a, Funcion b) {
 		operacion1  = a;
 		operacion2 = b;
 	}

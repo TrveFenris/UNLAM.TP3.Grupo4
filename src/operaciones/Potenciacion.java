@@ -1,10 +1,10 @@
 package operaciones;
 
-public class Potenciacion {
-	private Operacion operacion1;
-	private Operacion operacion2;
+public class Potenciacion implements Funcion{
+	private Funcion operacion1;
+	private Funcion operacion2;
 	
-	public Potenciacion(Operacion a, Operacion b) {
+	public Potenciacion(Funcion a, Funcion b) {
 		operacion1  = a;
 		operacion2 = b;
 	}

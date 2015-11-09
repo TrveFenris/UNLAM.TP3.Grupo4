@@ -1,10 +1,10 @@
 package operaciones;
 
-public class Division implements Operacion{
-	private Operacion operacion1;
-	private Operacion operacion2;
+public class Division implements Funcion{
+	private Funcion operacion1;
+	private Funcion operacion2;
 	
-	public Division(Operacion a, Operacion b) {
+	public Division(Funcion a, Funcion b) {
 		operacion1  = a;
 		operacion2 = b;
 	}

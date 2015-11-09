@@ -1,5 +1,5 @@
 package operaciones;
 
-public interface Operacion {
+public interface Funcion {
 	public double resolver();
 }
