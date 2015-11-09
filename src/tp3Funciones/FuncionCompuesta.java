@@ -44,6 +44,7 @@ public class FuncionCompuesta implements Funcion{
 			for(int i=0;i<cantPuntos;i++){
 				linea = br.readLine();
 				aux = linea.split(" ");
+				System.out.println("x = "+linea);
 				switch(dimPunto){
 					case 1:
 						VariableX.getReferenciaVariable().setValor(Integer.parseInt(linea));
@@ -61,7 +62,7 @@ public class FuncionCompuesta implements Funcion{
 						
 				}
 				resultados[i] = funcion.resolver();
-				System.out.println(resultados[i]);
+				System.out.println("RESULTADO: "+resultados[i]);
 			}
 			br.close();
 			
@@ -117,20 +118,7 @@ public class FuncionCompuesta implements Funcion{
 	}
 	
 	private Funcion crearFuncion(int indice){
-		System.out.println(datos[indice]);
-		if(indice==0){
-			if(datos[indice].equals("x")){
-				return VariableX.getReferenciaVariable();
-			}
-			if(datos[indice].equals("y")){
-				return VariableY.getReferenciaVariable();
-			}
-			if(datos[indice].equals("z")){
-				return VariableZ.getReferenciaVariable();
-			}
-			else
-				return new Constante(Double.parseDouble(datos[indice]));
-		}
+		System.out.print(datos[indice]/*+ "\t"+indice*/);
 		
 		if(datos[indice].equals("+")){
 			return funcion=new Suma(crearFuncion(indice-1),crearFuncion(indice-2));
