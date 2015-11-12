@@ -18,6 +18,7 @@ public class Main {
 				File archivo=new File("Entradas/"+datos[0]+".in");
 				FuncionCompuesta funcion = new FuncionCompuesta(archivo);
 				funcion.guardarResultados(new File("Salidas/"+datos[0]+".out"));
+				System.out.println("Procesado: "+path);
 		    }
 		}
 		System.out.println("FIN");

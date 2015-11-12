@@ -47,7 +47,6 @@ public class FuncionCompuesta implements Funcion{
 				switch(dimPunto){
 					case 1:
 						VariableX.getReferenciaVariable().setValor(Integer.parseInt(linea));
-						//System.out.println(VariableX.getReferenciaVariable().resolver());
 						break;
 					case 2:
 						VariableX.getReferenciaVariable().setValor(Integer.parseInt(aux[0]));
@@ -119,7 +118,6 @@ public class FuncionCompuesta implements Funcion{
 	
 	
 	private Funcion crearFuncion(){
-		//2 x 2 ^ 3 * + 
 		Stack<Funcion> pila= new Stack<Funcion>();
 		Funcion f=null;
 		Funcion izq=null;
