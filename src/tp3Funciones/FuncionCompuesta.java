@@ -1,5 +1,6 @@
 package tp3Funciones;
 
+import java.util.Stack;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -20,10 +21,10 @@ import variables.VariableY;
 import variables.VariableZ;
 
 public class FuncionCompuesta implements Funcion{
-	private String[] datos;
 	private Funcion funcion;
 	private double[] resultados;
 	private int cantPuntos;
+	private String[] cadena;
 	
 	public FuncionCompuesta(File archivo){
 		FileReader fr=null;
@@ -32,9 +33,8 @@ public class FuncionCompuesta implements Funcion{
 			fr = new FileReader(archivo);
 			br = new BufferedReader(fr);
 			String linea = br.readLine();
-			System.out.println(linea);
-			datos = linea.split(" ");
-			crearFuncion(datos.length-1);
+			cadena = linea.split(" ");
+			this.funcion=crearFuncion();
 			linea = br.readLine();
 			String[] aux = linea.split(" ");
 			int dimPunto = Integer.parseInt(aux[0]);
@@ -44,7 +44,6 @@ public class FuncionCompuesta implements Funcion{
 			for(int i=0;i<cantPuntos;i++){
 				linea = br.readLine();
 				aux = linea.split(" ");
-				System.out.println("x = "+linea);
 				switch(dimPunto){
 					case 1:
 						VariableX.getReferenciaVariable().setValor(Integer.parseInt(linea));
@@ -62,7 +61,6 @@ public class FuncionCompuesta implements Funcion{
 						
 				}
 				resultados[i] = funcion.resolver();
-				System.out.println("RESULTADO: "+resultados[i]);
 			}
 			br.close();
 			
@@ -114,48 +112,72 @@ public class FuncionCompuesta implements Funcion{
 	}
 	
 	public double resolver(){
+		if(funcion==null)
+			return -1.11;
 		return funcion.resolver();
 	}
 	
-	private Funcion crearFuncion(int indice){
-		System.out.println(datos[indice]+ "\t"+indice);
-		
-		if(datos[indice].equals("+")){
-			return funcion=new Suma(crearFuncion(indice-1),crearFuncion(indice-2));
-		}
-		
-		if(datos[indice].equals("-")){
-			return funcion=new Resta(crearFuncion(indice-1),crearFuncion(indice-2));
-		}
-		
-		if(datos[indice].equals("*")){
-			return funcion=new Multiplicacion(crearFuncion(indice-1),crearFuncion(indice-2));
-		}
-		
-		if(datos[indice].equals("/")){
-			return funcion=new Division(crearFuncion(indice-1),crearFuncion(indice-2));
-		}
-		
-		if(datos[indice].equals("^")){
-			return funcion=new Potenciacion(crearFuncion(indice-1),crearFuncion(indice-2));
-		}
-		
-		if(datos[indice].equals("ln")){
-			return funcion=new Logaritmo(crearFuncion(indice-1));
-		}
-		
-		if(datos[indice].equals("x")){
-			return VariableX.getReferenciaVariable();
-		}
-		
-		if(datos[indice].equals("y")){
-			return VariableY.getReferenciaVariable();
-		}
-		
-		if(datos[indice].equals("z")){
-			return VariableZ.getReferenciaVariable();
-		}
-		else
-			return new Constante(Double.parseDouble(datos[indice]));
+	
+	private Funcion crearFuncion(){
+		//2 x 2 ^ 3 * + 
+		Stack<Funcion> pila= new Stack<Funcion>();
+		Funcion f=null;
+		Funcion izq=null;
+		Funcion der=null;
+		 int i=0;
+		 while(i<cadena.length){
+		 	while(!cadena[i].equals("+")&&!cadena[i].equals("-")&&!cadena[i].equals("*")&&!cadena[i].equals("/")&&!cadena[i].equals("^")&&!cadena[i].equals("ln")){
+		 		
+		 		if(cadena[i].equals("x")){
+		 			pila.push(VariableX.getReferenciaVariable());
+		 		}
+		 		else if(cadena[i].equals("y")){
+		 			pila.push(VariableY.getReferenciaVariable());
+		 		}
+		 		else if(cadena[i].equals("z")){
+		 			pila.push(VariableZ.getReferenciaVariable());
+		 		}
+		 		else{
+		 			pila.push(new Constante(Double.parseDouble(cadena[i])));
+		 		}
+		 		i++;
+		 	}
+		 	
+			if(cadena[i].equals("+")){
+				der=pila.pop();
+				izq=pila.pop();
+				f=new Suma(izq, der);
+			}
+			
+			if(cadena[i].equals("-")){
+				der=pila.pop();
+				izq=pila.pop();
+				f=new Resta(izq, der);
+			}
+			
+			if(cadena[i].equals("*")){
+				der=pila.pop();
+				izq=pila.pop();
+				f=new Multiplicacion(izq, der);
+			}
+			
+			if(cadena[i].equals("/")){
+				der=pila.pop();
+				izq=pila.pop();
+				f=new Division(izq, der);
+			}
+			
+			if(cadena[i].equals("^")){
+				der=pila.pop();
+				izq=pila.pop();
+				f=new Potenciacion(izq, der);
+			}
+			if(cadena[i].equals("ln")){
+				f=new Logaritmo(pila.pop());
+			}
+			pila.push(f);
+			i++;
+		 }
+		 return f;
 	}
 }
